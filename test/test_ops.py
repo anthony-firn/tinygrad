@@ -1005,6 +1005,11 @@ class TestOps(unittest.TestCase):
     n = (x < 0).where(x, 1).numpy()
     assert np.all(n == 1.)
 
+  def test_symbolic_shape():
+    x = Tensor(np.random.rand(10, 10))
+    y = x.reshape(-1, 5)  # -1 is a symbolic shape that means "whatever is needed"
+    assert y.shape == (20, 5)
+
 if __name__ == '__main__':
   np.random.seed(1337)
   unittest.main(verbosity=2)
